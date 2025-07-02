@@ -9,7 +9,7 @@ import Hero from './components/layout/Hero';
 const App = () => {
   const [progress, setProgress] = useState(0);
   const [country, setCountry] = useState('in');
-  const apiKey = process.env.REACT_APP_NEWS_API_KEY || "dedf46d1b5a74e18a6561995789c2b7f";
+  const apiKey = process.env.REACT_APP_NEWS_API_KEY;
 
   // Check if API key is configured
   if (!apiKey || apiKey === 'your_newsapi_key_here') {
@@ -27,8 +27,9 @@ const App = () => {
             </p>
             <ol className="text-sm text-gray-300 space-y-1">
               <li>1. Get a free API key from <a href="https://newsapi.org" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">newsapi.org</a></li>
-              <li>2. Replace 'your_newsapi_key_here' in the .env file with your actual API key</li>
-              <li>3. Restart the development server</li>
+              <li>2. Create a .env file in your project root</li>
+              <li>3. Add: REACT_APP_NEWS_API_KEY=your_actual_api_key</li>
+              <li>4. Restart the development server</li>
             </ol>
           </div>
         </div>
