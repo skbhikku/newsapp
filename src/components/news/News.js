@@ -13,7 +13,7 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
   const [error, setError] = useState(null);
 
   // Use the API key directly if not provided via props
-  const actualApiKey = apiKey || "dedf46d1b5a74e18a6561995789c2b7f";
+  const actualApiKey ="dedf46d1b5a74e18a6561995789c2b7f";
 
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
