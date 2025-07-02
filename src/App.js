@@ -4,28 +4,29 @@ import Navbar from './components/layout/Navbar';
 import News from './components/news/News';
 import LoadingBar from './components/ui/LoadingBar';
 import Footer from './components/layout/Footer';
+import Hero from './components/layout/Hero';
 
 const App = () => {
   const [progress, setProgress] = useState(0);
   const [country, setCountry] = useState('in');
-  const apiKey = process.env.REACT_APP_NEWS_API_KEY;
+  const apiKey = process.env.REACT_APP_NEWS_API_KEY || "dedf46d1b5a74e18a6561995789c2b7f";
 
   // Check if API key is configured
   if (!apiKey || apiKey === 'your_newsapi_key_here') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-        <div className="max-w-md mx-auto p-8 bg-white rounded-lg shadow-lg text-center">
-          <div className="text-6xl mb-4">🔑</div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">API Key Required</h2>
-          <p className="text-gray-600 mb-6">
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center">
+        <div className="max-w-md mx-auto p-8 bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl text-center border border-white/20">
+          <div className="text-6xl mb-4 animate-bounce">🔑</div>
+          <h2 className="text-2xl font-bold text-white mb-4">API Key Required</h2>
+          <p className="text-gray-200 mb-6">
             Please set up your NewsAPI key to use this application.
           </p>
-          <div className="text-left bg-gray-50 p-4 rounded-lg mb-4">
-            <p className="text-sm text-gray-700 mb-2">
+          <div className="text-left bg-black/20 p-4 rounded-lg mb-4 backdrop-blur-sm">
+            <p className="text-sm text-gray-200 mb-2">
               <strong>Steps to set up:</strong>
             </p>
-            <ol className="text-sm text-gray-600 space-y-1">
-              <li>1. Get a free API key from <a href="https://newsapi.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">newsapi.org</a></li>
+            <ol className="text-sm text-gray-300 space-y-1">
+              <li>1. Get a free API key from <a href="https://newsapi.org" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">newsapi.org</a></li>
               <li>2. Replace 'your_newsapi_key_here' in the .env file with your actual API key</li>
               <li>3. Restart the development server</li>
             </ol>
@@ -37,7 +38,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
         <Navbar setCountry={setCountry} country={country} />
         <LoadingBar progress={progress} />
         
@@ -45,7 +46,12 @@ const App = () => {
           <Routes>
             <Route
               path='/'
-              element={<News setProgress={setProgress} apiKey={apiKey} pageSize={12} country={country} category="general" />}
+              element={
+                <>
+                  <Hero />
+                  <News setProgress={setProgress} apiKey={apiKey} pageSize={12} country={country} category="general" />
+                </>
+              }
             />
             <Route
               path="/business"
