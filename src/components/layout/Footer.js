@@ -10,7 +10,17 @@ const Footer = () => {
   ];
 
   const categories = ['Business', 'Technology', 'Sports', 'Health', 'Science', 'Entertainment'];
-  const aboutLinks = ['About Us', 'Contact', 'Privacy Policy', 'Terms of Service'];
+  const aboutLinks = [
+    { name: 'About Us', path: '/about' },
+    { name: 'Contact', path: '/contact' },
+    { name: 'Privacy Policy', path: '/privacy' },
+    { name: 'Terms of Service', path: '/terms' }
+  ];
+
+  const handleLinkClick = (path) => {
+    // For now, just scroll to top or handle navigation as needed
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer className="relative bg-black/40 backdrop-blur-xl border-t border-white/10 mt-20 overflow-hidden">
@@ -24,7 +34,7 @@ const Footer = () => {
             key={i}
             className="absolute w-1 h-1 bg-white/20 rounded-full"
             initial={{ 
-              x: Math.random() * window.innerWidth, 
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200), 
               y: Math.random() * 400,
               scale: 0 
             }}
@@ -115,15 +125,15 @@ const Footer = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 * index }}
                 >
-                  <a 
-                    href={`/${category.toLowerCase()}`} 
-                    className="text-gray-400 hover:text-white transition-all duration-200 flex items-center space-x-2 group"
+                  <button 
+                    onClick={() => handleLinkClick(`/${category.toLowerCase()}`)}
+                    className="text-gray-400 hover:text-white transition-all duration-200 flex items-center space-x-2 group text-left"
                   >
                     <motion.div
                       className="w-1 h-1 bg-purple-500 rounded-full group-hover:w-2 transition-all duration-200"
                     />
                     <span className="group-hover:translate-x-1 transition-transform duration-200">{category}</span>
-                  </a>
+                  </button>
                 </motion.li>
               ))}
             </ul>
@@ -142,20 +152,20 @@ const Footer = () => {
             <ul className="space-y-3">
               {aboutLinks.map((link, index) => (
                 <motion.li 
-                  key={link}
+                  key={link.name}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 * index }}
                 >
-                  <a 
-                    href="#" 
-                    className="text-gray-400 hover:text-white transition-all duration-200 flex items-center space-x-2 group"
+                  <button 
+                    onClick={() => handleLinkClick(link.path)}
+                    className="text-gray-400 hover:text-white transition-all duration-200 flex items-center space-x-2 group text-left"
                   >
                     <motion.div
                       className="w-1 h-1 bg-pink-500 rounded-full group-hover:w-2 transition-all duration-200"
                     />
-                    <span className="group-hover:translate-x-1 transition-transform duration-200">{link}</span>
-                  </a>
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">{link.name}</span>
+                  </button>
                 </motion.li>
               ))}
             </ul>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, User, ExternalLink, Clock, Sparkles } from 'lucide-react';
+import { User, ExternalLink, Clock, Sparkles } from 'lucide-react';
 
 const NewsItem = ({ title, description, imageUrl, newsUrl, author, date, source, category }) => {
   const truncateText = (text, maxLength) => {

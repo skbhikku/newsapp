@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import NewsItem from './NewsItem';
 import Spinner from '../ui/Spinner';
@@ -57,7 +57,7 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
     }
   };
 
-  const updateNews = async () => {
+  const updateNews = useCallback(async () => {
     try {
       setProgress(10);
       setError(null);
@@ -90,12 +90,12 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
       setLoading(false);
       setProgress(100);
     }
-  };
+  }, [apiKey, country, category, pageSize, setProgress]);
 
   useEffect(() => {
     document.title = `${capitalizeFirstLetter(category)} News - NewsKnow`;
     updateNews();
-  }, [country, category]);
+  }, [country, category, updateNews]);
 
   const fetchMoreData = async () => {
     try {
