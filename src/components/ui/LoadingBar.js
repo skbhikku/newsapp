@@ -13,11 +13,19 @@ const LoadingBar = ({ progress }) => {
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         />
-        {/* Animated Glow */}
+        {/* Simple animated glow without problematic keyframes */}
         <motion.div
-          className="absolute top-0 h-full w-20 bg-gradient-to-r from-transparent via-white/50 to-transparent blur-sm"
-          animate={{ x: ['-80px', '100vw'] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          className="absolute top-0 left-0 h-full w-20 bg-gradient-to-r from-transparent via-white/30 to-transparent blur-sm"
+          animate={{ 
+            x: [0, 200, 400, 600, 800, 1000],
+            opacity: [0, 1, 1, 1, 1, 0]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "linear",
+            times: [0, 0.2, 0.4, 0.6, 0.8, 1]
+          }}
         />
       </div>
     </div>
