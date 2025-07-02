@@ -16,7 +16,7 @@ const LoadingBar = ({ progress }) => {
         {/* Animated Glow */}
         <motion.div
           className="absolute top-0 h-full w-20 bg-gradient-to-r from-transparent via-white/50 to-transparent blur-sm"
-          animate={{ x: [`-80px`, `calc(100vw + 80px)`] }}
+          animate={{ x: ['-80px', '100vw'] }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
         />
       </div>
