@@ -29,6 +29,21 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
     return icons[category] || '📰';
   };
 
+  const getErrorMessage = (status, message) => {
+    switch (status) {
+      case 426:
+        return 'API key issue: Please check if your NewsAPI key is valid and supports requests from this domain. If running locally, ensure your key supports localhost requests.';
+      case 401:
+        return 'Invalid API key: Please check your NewsAPI key in the .env file.';
+      case 429:
+        return 'Rate limit exceeded: You have made too many requests. Please try again later.';
+      case 500:
+        return 'Server error: NewsAPI is experiencing issues. Please try again later.';
+      default:
+        return message || 'An unexpected error occurred while fetching news.';
+    }
+  };
+
   const updateNews = async () => {
     try {
       setProgress(10);
@@ -40,7 +55,8 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
       setProgress(30);
       
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorMessage = getErrorMessage(response.status);
+        throw new Error(errorMessage);
       }
       
       const parsedData = await response.json();
@@ -91,7 +107,17 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
         <div className="text-center">
           <div className="text-6xl mb-4">😞</div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Oops! Something went wrong</h2>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">{error}</p>
+          {error.includes('API key') && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 max-w-2xl mx-auto">
+              <p className="text-sm text-yellow-800">
+                <strong>Need help with your API key?</strong><br/>
+                1. Get a free key from <a href="https://newsapi.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">newsapi.org</a><br/>
+                2. Update the REACT_APP_NEWS_API_KEY in your .env file<br/>
+                3. Restart the development server
+              </p>
+            </div>
+          )}
           <button
             onClick={updateNews}
             className="btn-primary"
