@@ -64,7 +64,7 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
     try {
       setProgress(10);
       setError(null);
-      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${actualApiKey}&page=1&pageSize=${pageSize}`;
+      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${page}&pageSize=${pageSize}`;
       setLoading(true);
       
       const response = await fetch(url);
@@ -103,7 +103,7 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
   const fetchMoreData = async () => {
     try {
       const nextPage = page + 1;
-      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${actualApiKey}&page=${nextPage}&pageSize=${pageSize}`;
+      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${nextPage}&pageSize=${pageSize}`;
       
       const response = await fetch(url);
       const parsedData = await response.json();
