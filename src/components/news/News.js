@@ -12,6 +12,9 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
   const [totalResults, setTotalResults] = useState(0);
   const [error, setError] = useState(null);
 
+  // Use the API key directly if not provided via props
+  const actualApiKey = apiKey || "dedf46d1b5a74e18a6561995789c2b7f";
+
   const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
@@ -61,7 +64,7 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
     try {
       setProgress(10);
       setError(null);
-      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=1&pageSize=${pageSize}`;
+      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${actualApiKey}&page=1&pageSize=${pageSize}`;
       setLoading(true);
       
       const response = await fetch(url);
@@ -90,7 +93,7 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
       setLoading(false);
       setProgress(100);
     }
-  }, [apiKey, country, category, pageSize, setProgress]);
+  }, [actualApiKey, country, category, pageSize, setProgress]);
 
   useEffect(() => {
     document.title = `${capitalizeFirstLetter(category)} News - NewsKnow`;
@@ -100,7 +103,7 @@ const News = ({ apiKey, setProgress, pageSize = 12, country = 'in', category }) 
   const fetchMoreData = async () => {
     try {
       const nextPage = page + 1;
-      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${apiKey}&page=${nextPage}&pageSize=${pageSize}`;
+      const url = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${actualApiKey}&page=${nextPage}&pageSize=${pageSize}`;
       
       const response = await fetch(url);
       const parsedData = await response.json();
